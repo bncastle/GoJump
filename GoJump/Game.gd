@@ -5,6 +5,7 @@ const LVL_PATH = "res://Levels/Level%d.tscn"
 var lvl_num:int = 1
 
 func _ready():
+	add_to_group("pickup_listeners")
 	call_deferred("init")
 
 func init():
@@ -19,3 +20,6 @@ func load_level(num:int):
 	var lvl = load(LVL_PATH % num).instance()
 	root.add_child(lvl)
 	return true
+
+func on_pickup(item):
+	print(item.name)
