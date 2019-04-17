@@ -22,6 +22,5 @@ func load_level(num:int):
 	return true
 
 func on_pickup(item):
-	print(item.name)
 	if item.name == "Key":
-		get_tree().call_group("triggerable", "trigger", "Door")
+		get_tree().call_group("triggerable","trigger", "Door")
