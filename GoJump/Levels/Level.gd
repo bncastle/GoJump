@@ -1,12 +1,14 @@
 extends Node2D
 
 const KEY := 2
+const DOOR := 4
 const COIN := 8
 const PLAYER := 13
 
 export (PackedScene) var player
 export (PackedScene) var coin
 export (PackedScene) var key
+export (PackedScene) var door
 
 func _ready():
 	call_deferred("setup_tiles")
@@ -18,6 +20,8 @@ func setup_tiles():
 		match index:
 			KEY:
 				create_instance_from_tilemap(cell, key, $Items, Vector2(6,6))
+			DOOR:
+				create_instance_from_tilemap(cell, door, $Triggerables, Vector2(6,6))
 			COIN:
 				create_instance_from_tilemap(cell, coin, $Items, Vector2(6,6))
 			PLAYER:
