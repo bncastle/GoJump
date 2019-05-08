@@ -48,9 +48,9 @@ func _process(delta):
 				jump()
 			fall_time += delta
 		LAND:
-			if $DustTimer.is_stopped():
+			if $DustTimer.is_stopped() and !$FootDust.emitting:
 				$FootDust.emitting = true
-				$DustTimer.start($FootDust.lifetime + 0.2)
+				$DustTimer.start($FootDust.lifetime + 0.1)
 #			print("fell: %f" % (global_position.y - last_y))
 			fall_time = 0
 			state = NORMAL
@@ -76,13 +76,13 @@ func horizontal():
 		if velocity.x == 0:
 			$Anim.play("idle")
 		else:
-			$Anim.play("walk")
+			$Anim.play("walk", -1, 1.5)
 
 func jump():
 	if air_control:
 		horizontal()
 
-	if Input.is_action_just_pressed("jump") and air_jumps >= 0:
+	if Input.is_action_just_pressed("jump"):
 		$Anim.play("jump")
 		state = JUMP
 		if air_jumps == max_air_jumps:

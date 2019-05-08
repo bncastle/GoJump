@@ -1,12 +1,30 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
-[ext_resource path="res://dunjo-modified.png" type="Texture" id=2]
+[ext_resource path="res://gfx/player.png" type="Texture" id=2]
 [ext_resource path="res://FootDust.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.31598
 height = 0.670677
+
+[sub_resource type="Animation" id=5]
+resource_name = "climb"
+length = 0.4
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 5, 6, 7, 8 ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "idle"
@@ -22,7 +40,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 47 ]
+"values": [ 2 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -39,7 +57,8 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "jump"
-length = 0.3
+length = 0.15
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:scale")
 tracks/0/interp = 1
@@ -59,15 +78,16 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
+"times": PoolRealArray( 0, 0.05, 0.1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ 45, 47, 46 ]
+"values": [ 0, 3, 1 ]
 }
 
 [sub_resource type="Animation" id=4]
 length = 0.4
 loop = true
+step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
@@ -78,7 +98,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 48, 47, 46, 47 ]
+"values": [ 2, 3, 1, 0 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:scale")
@@ -107,11 +127,12 @@ texture = ExtResource( 2 )
 centered = false
 offset = Vector2( -6, -12 )
 vframes = 5
-hframes = 10
-frame = 46
+hframes = 5
+frame = 6
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "idle"
+anims/climb = SubResource( 5 )
 anims/idle = SubResource( 2 )
 anims/jump = SubResource( 3 )
 anims/walk = SubResource( 4 )
@@ -120,4 +141,3 @@ anims/walk = SubResource( 4 )
 one_shot = true
 
 [node name="FootDust" parent="." instance=ExtResource( 3 )]
-

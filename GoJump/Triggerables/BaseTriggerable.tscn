@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Triggerables/BaseTriggerable.gd" type="Script" id=1]
-[ext_resource path="res://dunjo-modified.png" type="Texture" id=2]
+[ext_resource path="res://gfx/dunjo-modified.png" type="Texture" id=2]
+
 
 [node name="Triggerable" type="Area2D"]
 collision_layer = 8
