@@ -23,6 +23,13 @@ config/icon="res://icon.png"
 
 utils="*res://utils.gd"
 
+[debug]
+
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
+
 [display]
 
 window/size/width=324
