@@ -7,12 +7,14 @@ const LADDER := 7
 const COIN := 8
 const PLAYER := 13
 const COMPUTER := 14
+const LADDER_TOP := 15
 
 export (PackedScene) var player
 export (PackedScene) var coin
 export (PackedScene) var key
 export (PackedScene) var door
 export (PackedScene) var ladder
+export (PackedScene) var ladder_top
 export (PackedScene) var chain
 export (PackedScene) var computer
 
@@ -38,6 +40,8 @@ func setup_tiles():
 				create_instance_from_tilemap(cell, player, self, Vector2(6,12))
 			COMPUTER:
 				create_instance_from_tilemap(cell, computer, self, Vector2(6,12))
+			LADDER_TOP:
+				create_instance_from_tilemap(cell, ladder_top, $Interactables, Vector2(6,6))
 
 func create_instance_from_tilemap(coord:Vector2, prefab:PackedScene, parent: Node2D, offset:Vector2 = Vector2.ZERO):
 	$Tiles.set_cell(coord.x, coord.y, -1)
