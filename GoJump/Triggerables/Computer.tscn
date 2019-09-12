@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Triggerables/BaseTriggerable.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Triggerables/Computer.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4.92127, 5.02297 )
+
+[node name="Computer" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+tag = "Computer"
+
+[node name="Sprite" parent="." index="0"]
+frame = 43
+
+[node name="Collision" parent="." index="1"]
+shape = SubResource( 1 )

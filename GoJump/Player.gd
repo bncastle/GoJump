@@ -112,7 +112,7 @@ func vertical():
 			$Anim.play("climb")
 
 func change_state (new_state: int):
-	print("Change state from %d to %d" % [state, new_state])
+#	print("Change state from %d to %d" % [state, new_state])
 	prev_state = state
 	state = new_state
 
