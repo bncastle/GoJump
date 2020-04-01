@@ -7,6 +7,7 @@ extents = Vector2( 4.50882, 4.0643 )
 
 [node name="Key" instance=ExtResource( 1 )]
 delete_on_pickup = false
+type = "Key"
 
 [node name="Sprite" parent="." index="0"]
 frame = 9

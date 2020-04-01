@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
+[ext_resource path="res://sfx/Cave Theme.ogg" type="AudioStream" id=2]
+[ext_resource path="res://sfx/Dungeon Ambience.ogg" type="AudioStream" id=3]
+[ext_resource path="res://sfx/GetKey.wav" type="AudioStream" id=4]
+[ext_resource path="res://sfx/GetCoin.wav" type="AudioStream" id=5]
+[ext_resource path="res://sfx/DoorUnlock.wav" type="AudioStream" id=6]
 
 [node name="Game" type="Node2D"]
 pause_mode = 2
@@ -33,3 +38,25 @@ mouse_filter = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Ambient" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+autoplay = true
+bus = "Music"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+autoplay = true
+bus = "Music"
+
+[node name="GetKey" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "Sfx"
+
+[node name="GetCoin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "Sfx"
+
+[node name="DoorUnlock" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+bus = "Sfx"

@@ -4,7 +4,7 @@
 [ext_resource path="res://Triggerables/Door.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5.50559, 6.20023 )
+extents = Vector2( 4.13438, 5.28431 )
 
 [sub_resource type="Animation" id=2]
 length = 0.1
@@ -44,6 +44,7 @@ tag = "Door"
 frame = 19
 
 [node name="Collision" parent="." index="1"]
+position = Vector2( -0.377869, -0.47234 )
 shape = SubResource( 1 )
 
 [node name="Anim" parent="." index="2"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Dungeon Ambience.ogg-9695f83a8408020c1f81acee1ab415ad.oggstr"
+
+[deps]
+
+source_file="res://sfx/Dungeon Ambience.ogg"
+dest_files=[ "res://.import/Dungeon Ambience.ogg-9695f83a8408020c1f81acee1ab415ad.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

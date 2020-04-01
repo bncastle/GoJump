@@ -53,7 +53,8 @@ func on_next_level():
 	#todo: something if no more levels
 
 func on_pickup(item):
-	if item.name == "Key":
+	if item.type == "Key":
+		$GetKey.play()
 		get_tree().paused = true
 		$Tween.interpolate_property(item, "position", item.position, item.position - Vector2(0, 20), 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		$Tween.start()
@@ -69,8 +70,11 @@ func on_pickup(item):
 		yield($Tween, "tween_all_completed")
 		item.queue_free()
 
+		$DoorUnlock.play()
 		get_tree().call_group("triggerable", "trigger", "Door")
 		get_tree().paused = false
+	elif item.type == "Coin":
+		$GetCoin.play()
 
 
 func computer_on():

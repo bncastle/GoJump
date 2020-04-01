@@ -24,6 +24,7 @@ tracks/0/keys = {
 
 [node name="Coin" instance=ExtResource( 1 )]
 anim_random_start = true
+type = "Coin"
 
 [node name="Sprite" parent="." index="0"]
 frame = 32
