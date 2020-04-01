@@ -5,6 +5,8 @@ const LVL_PATH = "res://Levels/Level%d.tscn"
 export(float) var fade_time = 0.5
 
 var lvl_num:int = 1
+var lvl_door: Node2D
+
 onready var Level = preload("res://Levels/Level.gd")
 
 func _ready():
@@ -31,10 +33,12 @@ func get_level_node():
 	return null
 
 ##Game group functions
+func on_set_door(new_door):
+	lvl_door = new_door
 
 func on_next_level():
 	lvl_num += 1
-	#todo: we want a scene transition of some sort and maybe some "game juice" here
+	#The scene transition
 	get_tree().paused = true
 	var f = $Container/Fader
 	$Tween.interpolate_property(f, "modulate:a", f.modulate.a, 1, fade_time, Tween.TRANS_CUBIC, Tween.EASE_OUT)
@@ -50,7 +54,24 @@ func on_next_level():
 
 func on_pickup(item):
 	if item.name == "Key":
+		get_tree().paused = true
+		$Tween.interpolate_property(item, "position", item.position, item.position - Vector2(0, 20), 0.25, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$Tween.start()
+		yield($Tween, "tween_completed")
+		#pause briefly
+		yield(get_tree().create_timer(0.25), "timeout")
+
+		#make the key goto the door
+		$Tween.interpolate_property(item, "position", item.position, lvl_door.position, 0.6, Tween.TRANS_CUBIC, Tween.EASE_IN)
+		$Tween.interpolate_property(item, "rotation", item.rotation, item.rotation + 2 * TAU, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN)
+		$Tween.interpolate_property(item, "scale", item.scale, Vector2.ONE * 0.1, 0.6, Tween.TRANS_CUBIC, Tween.EASE_IN)
+		$Tween.start()
+		yield($Tween, "tween_all_completed")
+		item.queue_free()
+
 		get_tree().call_group("triggerable", "trigger", "Door")
+		get_tree().paused = false
+
 
 func computer_on():
 	var lvl = get_level_node()
