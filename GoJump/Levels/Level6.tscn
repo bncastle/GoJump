@@ -1,0 +1,39 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Levels/Level.gd" type="Script" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Pickups/Coin.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Pickups/Key.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Triggerables/Door.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Interactables/Ladder.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Interactables/Chain.tscn" type="PackedScene" id=7]
+[ext_resource path="res://DungeonTileset.tres" type="TileSet" id=8]
+[ext_resource path="res://Interactables/LadderTop.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Triggerables/Computer.tscn" type="PackedScene" id=10]
+
+[node name="Level" type="Node2D"]
+pause_mode = 1
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+player = ExtResource( 2 )
+coin = ExtResource( 3 )
+key = ExtResource( 4 )
+door = ExtResource( 5 )
+ladder = ExtResource( 6 )
+ladder_top = ExtResource( 9 )
+chain = ExtResource( 7 )
+computer = ExtResource( 10 )
+
+[node name="Tiles" type="TileMap" parent="."]
+tile_set = ExtResource( 8 )
+cell_size = Vector2( 12, 12 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 131075, 1, 0, 4, 2, 0, 4, 3, 0, 4, 4, 0, 4, 5, 0, 4, 6, 0, 4, 7, 0, 4, 8, 0, 4, 9, 0, 4, 10, 0, 4, 11, 0, 4, 12, 0, 4, 13, 0, 4, 14, 0, 4, 15, 0, 4, 16, 0, 4, 17, 0, 4, 18, 0, 4, 19, 0, 4, 20, 0, 4, 21, 0, 4, 22, 0, 4, 23, 0, 4, 24, 0, 4, 25, 0, 4, 26, 0, 131076, 65536, 0, 65542, 65562, 0, 65542, 131072, 0, 65542, 131098, 0, 65542, 196608, 0, 65542, 196634, 0, 65542, 262144, 0, 65542, 262170, 0, 65542, 327680, 0, 65542, 327706, 0, 65542, 393216, 0, 65542, 393242, 0, 65542, 458752, 0, 65542, 458778, 0, 65542, 524288, 0, 65542, 524314, 0, 65542, 589824, 0, 65542, 589850, 0, 65542, 655360, 0, 65542, 655386, 0, 65542, 720896, 0, 65542, 720922, 0, 65542, 786432, 0, 65542, 786458, 0, 65542, 851968, 0, 65540, 851969, 0, 4, 851970, 0, 4, 851971, 0, 4, 851972, 0, 4, 851973, 0, 4, 851974, 0, 4, 851975, 0, 4, 851976, 0, 4, 851977, 0, 4, 851978, 0, 4, 851979, 0, 4, 851980, 0, 4, 851981, 0, 4, 851982, 0, 4, 851983, 0, 4, 851984, 0, 4, 851985, 0, 4, 851986, 0, 4, 851987, 0, 4, 851988, 0, 4, 851989, 0, 4, 851990, 0, 4, 851991, 0, 4, 851992, 0, 4, 851993, 0, 4, 851994, 0, 65541 )
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Triggerables" type="Node2D" parent="."]
+
+[node name="Interactables" type="Node2D" parent="."]

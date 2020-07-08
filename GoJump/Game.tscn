@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://sfx/Cave Theme.ogg" type="AudioStream" id=2]
@@ -6,6 +6,16 @@
 [ext_resource path="res://sfx/GetKey.wav" type="AudioStream" id=4]
 [ext_resource path="res://sfx/GetCoin.wav" type="AudioStream" id=5]
 [ext_resource path="res://sfx/DoorUnlock.wav" type="AudioStream" id=6]
+[ext_resource path="res://gfx/controls/transparentDark24.png" type="Texture" id=7]
+[ext_resource path="res://gfx/controls/transparentDark04.png" type="Texture" id=8]
+[ext_resource path="res://gfx/controls/transparentDark03.png" type="Texture" id=9]
+[ext_resource path="res://gfx/controls/transparentDark01.png" type="Texture" id=10]
+[ext_resource path="res://gfx/controls/transparentDark08.png" type="Texture" id=11]
+[ext_resource path="res://gfx/controls/flatDark02.png" type="Texture" id=12]
+[ext_resource path="res://gfx/controls/flatDark09.png" type="Texture" id=13]
+[ext_resource path="res://gfx/controls/flatDark04.png" type="Texture" id=14]
+[ext_resource path="res://gfx/controls/flatDark05.png" type="Texture" id=15]
+[ext_resource path="res://gfx/controls/flatDark25.png" type="Texture" id=16]
 
 [node name="Game" type="Node2D"]
 pause_mode = 2
@@ -23,7 +33,6 @@ __meta__ = {
 
 [node name="Camera" type="Camera2D" parent="."]
 offset = Vector2( 162, 84 )
-current = true
 
 [node name="Tween" type="Tween" parent="."]
 
@@ -60,3 +69,45 @@ bus = "Sfx"
 [node name="DoorUnlock" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 bus = "Sfx"
+
+[node name="TouchControls" type="Node2D" parent="."]
+
+[node name="Jump" type="TouchScreenButton" parent="TouchControls"]
+position = Vector2( 280.331, 129.783 )
+scale = Vector2( 0.35, 0.35 )
+normal = ExtResource( 7 )
+pressed = ExtResource( 16 )
+action = "jump"
+visibility_mode = 1
+
+[node name="Up" type="TouchScreenButton" parent="TouchControls"]
+position = Vector2( 25, 105 )
+scale = Vector2( 0.35, 0.35 )
+normal = ExtResource( 10 )
+pressed = ExtResource( 12 )
+action = "up"
+visibility_mode = 1
+
+[node name="Down" type="TouchScreenButton" parent="TouchControls"]
+position = Vector2( 25, 140 )
+scale = Vector2( 0.35, 0.35 )
+normal = ExtResource( 11 )
+pressed = ExtResource( 13 )
+action = "down"
+visibility_mode = 1
+
+[node name="Left" type="TouchScreenButton" parent="TouchControls"]
+position = Vector2( 5, 126 )
+scale = Vector2( 0.35, 0.35 )
+normal = ExtResource( 9 )
+pressed = ExtResource( 14 )
+action = "left"
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="TouchControls"]
+position = Vector2( 40, 126 )
+scale = Vector2( 0.35, 0.35 )
+normal = ExtResource( 8 )
+pressed = ExtResource( 15 )
+action = "right"
+visibility_mode = 1

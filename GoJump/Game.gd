@@ -81,3 +81,6 @@ func computer_on():
 	var lvl = get_level_node()
 	lvl.replace_tiles(Level.BLOCK_OUTLINE, Level.BLOCK)
 
+func computer_off():
+	var lvl = get_level_node()
+	lvl.replace_tiles(Level.BLOCK, Level.BLOCK_OUTLINE)

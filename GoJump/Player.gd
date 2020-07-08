@@ -4,7 +4,7 @@ enum PlayerState { NORMAL, JUMP, FALL, LAND, DIE, CLIMB }
 const GRAVITY := 800
 const JUMP_VELOCITY := -200
 const AIR_JUMP_MULT := 0.75
-const MIN_FALL_JUMP_TIME := 0.09
+const MIN_FALL_JUMP_TIME := 0.10
 
 onready var velocity := Vector2.ZERO
 
