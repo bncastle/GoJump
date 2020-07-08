@@ -1,6 +1,7 @@
 extends Node2D
 
 const LVL_PATH = "res://Levels/Level%d.tscn"
+const LVL_PLACEHOLDER = "res://Levels/LevelPlaceholder.tscn"
 
 export(float) var fade_time = 0.5
 
@@ -23,8 +24,10 @@ func load_level(num:int):
 		old_lvl.queue_free()
 
 	#todo:check if level actually exists
-	var lvl = load(LVL_PATH % num).instance()
-	self.add_child(lvl)
+	var lvl = load(LVL_PATH % num)
+	if !lvl:
+		lvl = load(LVL_PLACEHOLDER)
+	self.add_child(lvl.instance())
 	return true
 
 func get_level_node():
@@ -81,3 +84,6 @@ func computer_on():
 	var lvl = get_level_node()
 	lvl.replace_tiles(Level.BLOCK_OUTLINE, Level.BLOCK)
 
+func computer_off():
+	var lvl = get_level_node()
+	lvl.replace_tiles(Level.BLOCK, Level.BLOCK_OUTLINE)

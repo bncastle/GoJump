@@ -12,4 +12,7 @@ export_presets.cfg
 # Mono-specific ignores
 .mono/
 
+# bin output
+bin/*
+
 # End of https://www.gitignore.io/api/godot

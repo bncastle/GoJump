@@ -10,3 +10,7 @@ func _on_player_entered(body):
 		is_on = true
 		$Sprite.frame += 1
 		get_tree().call_group("game","computer_on")
+	else:
+		is_on = false
+		$Sprite.frame -= 1
+		get_tree().call_group("game","computer_off")
