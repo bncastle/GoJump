@@ -6,11 +6,12 @@ export(float) var fade_time = 0.5
 
 var lvl_num:int = 1
 var lvl_door: Node2D
-
+var viewport_size
 onready var Level = preload("res://Levels/Level.gd")
 
 func _ready():
 	add_to_group("game")
+	viewport_size = get_viewport_rect().size
 	call_deferred("init")
 
 func init():
@@ -23,9 +24,14 @@ func load_level(num:int):
 		old_lvl.queue_free()
 
 	#todo:check if level actually exists
-	var lvl = load(LVL_PATH % num).instance()
-	self.add_child(lvl)
-	return true
+	var lvl_scn = load(LVL_PATH % num)
+	if lvl_scn != null:
+		var lvl = lvl_scn.instance()
+		self.add_child(lvl)
+		return true
+	else:
+		print("%s does not exist! TODO: Win Game!" % [LVL_PATH % num])
+		return false
 
 func get_level_node():
 	if self.has_node("Level"):
@@ -41,13 +47,21 @@ func on_next_level():
 	#The scene transition
 	get_tree().paused = true
 	var f = $Container/Fader
-	$Tween.interpolate_property(f, "modulate:a", f.modulate.a, 1, fade_time, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+#	$Tween.interpolate_property(f, "modulate:a", f.modulate.a, 1, fade_time, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	$Circle.position = lvl_door.position
+	$Circle.visible = true
+	$Tween.interpolate_property($Circle, "scale", Vector2.ZERO, Vector2(5,5), fade_time, Tween.TRANS_CUBIC, Tween.EASE_IN)
 	$Tween.start()
 	yield($Tween, "tween_completed")
 	load_level(lvl_num)
-	$Tween.interpolate_property(f, "modulate:a", f.modulate.a, 0, fade_time, Tween.TRANS_CUBIC, Tween.EASE_IN)
+	#todo check return value of load_level to determine if there are in fact any more levels left
+	yield(get_tree().create_timer(0.25), "timeout")
+	$Circle.position = viewport_size / 2
+#	$Tween.interpolate_property(f, "modulate:a", f.modulate.a, 0, fade_time, Tween.TRANS_CUBIC, Tween.EASE_IN)
+	$Tween.interpolate_property($Circle, "scale", $Circle.scale, Vector2.ZERO, fade_time, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	$Tween.start()
 	yield($Tween, "tween_completed")
+	$Circle.visible = false
 	get_tree().paused = false
 
 	#todo: something if no more levels
