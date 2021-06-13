@@ -27,6 +27,8 @@ func load_level(num:int):
 	var lvl_scn = load(LVL_PATH % num)
 	if lvl_scn != null:
 		var lvl = lvl_scn.instance()
+		#Make sure the level node has the correct name!
+		lvl.name = "Level"
 		self.add_child(lvl)
 		return true
 	else:
