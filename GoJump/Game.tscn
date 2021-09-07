@@ -27,8 +27,6 @@ __meta__ = {
 offset = Vector2( 162, 84 )
 current = true
 
-[node name="Tween" type="Tween" parent="."]
-
 [node name="Container" type="Node2D" parent="."]
 z_index = 10
 
@@ -62,6 +60,8 @@ bus = "Sfx"
 [node name="DoorUnlock" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 bus = "Sfx"
+
+[node name="Tween" type="Tween" parent="."]
 
 [node name="Circle" type="Sprite" parent="."]
 visible = false

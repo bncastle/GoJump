@@ -27,7 +27,6 @@ func load_level(num:int):
 	var lvl_scn = load(LVL_PATH % num)
 	if lvl_scn != null:
 		var lvl = lvl_scn.instance()
-		#Make sure the level node has the correct name!
 		lvl.name = "Level"
 		self.add_child(lvl)
 		return true
@@ -46,27 +45,15 @@ func on_set_door(new_door):
 
 func on_next_level():
 	lvl_num += 1
-	#The scene transition
-	get_tree().paused = true
-	var f = $Container/Fader
-#	$Tween.interpolate_property(f, "modulate:a", f.modulate.a, 1, fade_time, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	$Circle.position = lvl_door.position
-	$Circle.visible = true
-	$Tween.interpolate_property($Circle, "scale", Vector2.ZERO, Vector2(5,5), fade_time, Tween.TRANS_CUBIC, Tween.EASE_IN)
-	$Tween.start()
-	yield($Tween, "tween_completed")
+	yield(utils.scale_out($Circle, $Tween, fade_time, true), "completed")
+	#yield(utils.fade_out($Container/Fader, $Tween, fade_time, true), "completed")
 	load_level(lvl_num)
-	#todo check return value of load_level to determine if there are in fact any more levels left
+	#todo: check return value of load_level to determine if there are in fact any more levels left
 	yield(get_tree().create_timer(0.25), "timeout")
 	$Circle.position = viewport_size / 2
-#	$Tween.interpolate_property(f, "modulate:a", f.modulate.a, 0, fade_time, Tween.TRANS_CUBIC, Tween.EASE_IN)
-	$Tween.interpolate_property($Circle, "scale", $Circle.scale, Vector2.ZERO, fade_time, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	$Tween.start()
-	yield($Tween, "tween_completed")
-	$Circle.visible = false
-	get_tree().paused = false
-
-	#todo: something if no more levels
+#	yield(utils.fade_in($Container/Fader, $Tween, fade_time, true), "completed")
+	yield(utils.scale_in($Circle, $Tween, fade_time, true), "completed")
 
 func on_pickup(item):
 	if item.type == "Key":
