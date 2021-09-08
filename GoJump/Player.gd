@@ -66,7 +66,7 @@ func _process(delta):
 				jump()
 			fall_time += delta
 		PlayerState.LAND:
-			if $DustTimer.is_stopped() and !$FootDust.emitting && velocity.y > 2:
+			if $DustTimer.is_stopped() && !$FootDust.emitting && !$RayCast2D.is_colliding():
 				$FootDust.emitting = true
 				$DustTimer.start($FootDust.lifetime + 0.1)
 #			print("fell: %f" % (global_position.y - last_y))
@@ -129,7 +129,7 @@ func jump():
 
 		air_jumps -= 1
 		last_y = global_position.y
-	elif is_on_floor() and velocity.y >= 0:
+	elif is_on_floor() :
 		change_state(PlayerState.LAND)
 
 func climb():
