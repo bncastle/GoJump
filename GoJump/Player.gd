@@ -47,13 +47,11 @@ func _process(delta):
 					if velocity.y < 0:
 						global_position.x = last_climbable_x
 						change_state(PlayerState.CLIMB)
-				else:
-					last_climbable_x = 0
 		PlayerState.JUMP:
 			jump()
 		PlayerState.CLIMB:
 			climb()
-			if is_on_floor():
+			if is_on_floor() && velocity.y > 0:
 				change_state(PlayerState.NORMAL)
 		PlayerState.FALL:
 			if is_on_floor():
@@ -146,7 +144,7 @@ func _on_Area2D_area_entered(area):
 		if state == PlayerState.JUMP && (prev_state != PlayerState.CLIMB || last_climbable_x != area.global_position.x):
 			global_position.x = area.global_position.x
 			change_state(PlayerState.CLIMB)
-			last_climbable_x = area.global_position.x
+		last_climbable_x = area.global_position.x
 
 
 func _on_Area2D_area_exited(area):
