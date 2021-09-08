@@ -1,18 +1,19 @@
 extends Area2D
 
-export (String) var trig_name = ""
+export (String) var tag
 
+# Called when the node enters the scene tree for the first time.
 func _ready():
-	connect("body_entered", self, "on_player_entered")
 	add_to_group("triggerable")
+	connect("body_entered", self, "_on_player_entered")
 
-func trigger(tag:String):
-	if trig_name.length() == 0 || trig_name != tag:
+func trigger(tag_name:String):
+	if tag.length() == 0 || tag != tag_name:
 		return
-	_perform_trigger()
+	_on_triggered()
 
-func _perform_trigger():
-	print("Need perform_trigger() implementation for: %s" % filename)
+func _on_triggered():
+	print("Need implementation of _on_triggered() in file: %s" % filename)
 
-func on_player_entered(body):
-	print("Need on_player_entered() implementation for: %s" % filename)
+func _on_player_entered(body):
+	print("Need implementation of _on_player_entered() in file: %s" % filename)
