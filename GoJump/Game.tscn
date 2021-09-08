@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Game.gd" type="Script" id=1]
 [ext_resource path="res://sfx/Cave Theme.ogg" type="AudioStream" id=2]
@@ -6,10 +6,12 @@
 [ext_resource path="res://sfx/GetKey.wav" type="AudioStream" id=4]
 [ext_resource path="res://sfx/GetCoin.wav" type="AudioStream" id=5]
 [ext_resource path="res://sfx/DoorUnlock.wav" type="AudioStream" id=6]
+[ext_resource path="res://gfx/Circle.png" type="Texture" id=7]
 
 [node name="Game" type="Node2D"]
 pause_mode = 2
 script = ExtResource( 1 )
+fade_time = 0.75
 
 [node name="Background" type="ColorRect" parent="."]
 margin_left = -9.73648
@@ -60,3 +62,10 @@ bus = "Sfx"
 [node name="DoorUnlock" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 bus = "Sfx"
+
+[node name="Circle" type="Sprite" parent="."]
+visible = false
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 97.5, 104 )
+z_index = 10
+texture = ExtResource( 7 )
