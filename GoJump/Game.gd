@@ -3,6 +3,7 @@ extends Node2D
 const LVL_PATH = "res://Levels/Level%d.tscn"
 
 var lvl_num:int = 1
+onready var Level = preload("res://Levels/Level.gd")
 
 func _ready():
 	add_to_group("game")
