@@ -34,6 +34,7 @@ func fade_out(rect: ColorRect, tween: Tween, fade_time:float, should_pause: bool
 
 func fade_in(rect: ColorRect, tween: Tween, fade_time:float, was_paused: bool):
 	rect.modulate.a = 1
+	rect.visible = true
 	tween.interpolate_property(rect, "modulate:a", rect.modulate.a, 0, fade_time, Tween.TRANS_CUBIC, Tween.EASE_IN)
 	tween.start()
 	yield(tween, "tween_completed")
