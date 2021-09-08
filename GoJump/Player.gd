@@ -26,7 +26,12 @@ var last_climbable_x := 0.0
 func _ready():
 	#Allows the 1st call to is_on_floor() to work correctly
 	move_and_slide(Vector2(10,0), Vector2.UP, true)
-
+	set_eyes(Color.black, 0)
+	
+func set_eyes(c:Color, blink_mult:float):
+	$Sprite.material.set_shader_param("new_color", c)
+	$Sprite.material.set_shader_param("blink_multiplier", blink_mult)
+	
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()

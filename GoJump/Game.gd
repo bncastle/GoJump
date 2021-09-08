@@ -87,6 +87,9 @@ func on_pickup(item):
 		$DoorUnlock.play()
 		get_tree().call_group("triggerable", "trigger", "Door")
 		get_tree().paused = false
+		
+		$Level/Player.set_eyes(Color.orangered, 2)
+		
 	elif item.type == "Coin":
 		$GetCoin.play()
 
