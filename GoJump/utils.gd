@@ -24,18 +24,19 @@ func scale_in(sprite: Sprite, tween: Tween, fade_time:float, was_paused: bool):
 		get_tree().paused = false
 
 
-func fade_out(sprite: ColorRect, tween: Tween, fade_time:float, should_pause: bool):
+func fade_out(rect: ColorRect, tween: Tween, fade_time:float, should_pause: bool):
 	if should_pause:
 		get_tree().paused = true
-	sprite.visible = true
-	tween.interpolate_property(sprite, "modulate:a", sprite.modulate.a, 1, fade_time, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	rect.visible = true
+	tween.interpolate_property(rect, "modulate:a", rect.modulate.a, 1, fade_time, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.start()
 	yield(tween, "tween_completed")
 
-func fade_in(sprite: ColorRect, tween: Tween, fade_time:float, was_paused: bool):
-	tween.interpolate_property(sprite, "modulate:a", sprite.modulate.a, 0, fade_time, Tween.TRANS_CUBIC, Tween.EASE_IN)
+func fade_in(rect: ColorRect, tween: Tween, fade_time:float, was_paused: bool):
+	rect.modulate.a = 1
+	tween.interpolate_property(rect, "modulate:a", rect.modulate.a, 0, fade_time, Tween.TRANS_CUBIC, Tween.EASE_IN)
 	tween.start()
 	yield(tween, "tween_completed")
-	sprite.visible = false
+	rect.visible = false
 	if was_paused:
 		get_tree().paused = false
