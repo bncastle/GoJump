@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-enum { NORMAL, JUMP, FALL, LAND, DIE }
+enum { NORMAL, JUMP, FALL, LAND, DIE, CLIMB_CHAIN }
 const GRAVITY := 800
 const JUMP_VELOCITY := -200
 const AIR_JUMP_MULT := 0.75
@@ -39,7 +39,8 @@ func _process(delta):
 					jump()
 		JUMP:
 			jump()
-			pass
+		CLIMB_CHAIN:
+			climb_chain()
 		FALL:
 			if is_on_floor():
 				state = LAND
@@ -59,7 +60,8 @@ func _process(delta):
 			pass
 
 func _physics_process(delta):
-	velocity.y += GRAVITY * delta
+	if state != CLIMB_CHAIN:
+		velocity.y += GRAVITY * delta
 	velocity = move_and_slide(velocity, Vector2.UP, true)
 
 func horizontal():
@@ -78,11 +80,24 @@ func horizontal():
 		else:
 			$Anim.play("walk", -1, 1.5)
 
+func vertical():
+	if Input.is_action_pressed("up"):
+		velocity.y = -speed / 2.0
+	elif Input.is_action_pressed("down"):
+		velocity.y = 0.75 * speed
+	else:
+		velocity.y = 0
+
+	if velocity.y == 0:
+		$Anim.play("climb_idle")
+	else:
+		$Anim.play("climb")
+
 func jump():
 	if air_control:
 		horizontal()
 
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") && air_jumps >= 0:
 		$Anim.play("jump")
 		state = JUMP
 		if air_jumps == max_air_jumps:
@@ -95,8 +110,24 @@ func jump():
 	elif is_on_floor() and velocity.y >= 0:
 		state = LAND
 
+func climb_chain():
+	velocity.x = 0
+	vertical()
 
 
+var vines := 0
+
+func on_interact_entered(obj_pos: Vector2, type):
+	vines += 1
+	if state == JUMP:
+		global_position.x = obj_pos.x
+		state = CLIMB_CHAIN
+
+func on_interact_exited(obj_pos: Vector2, type):
+	vines = max(0, vines - 1)
+	if vines == 0 && state == CLIMB_CHAIN:
+		$Anim.play("idle")
+		state = FALL
 
 
 

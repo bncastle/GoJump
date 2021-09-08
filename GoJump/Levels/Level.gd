@@ -2,6 +2,7 @@ extends Node2D
 
 const KEY := 2
 const DOOR := 4
+const CHAIN := 5
 const LADDER := 7
 const COIN := 8
 const PLAYER := 13
@@ -12,6 +13,7 @@ export (PackedScene) var coin
 export (PackedScene) var key
 export (PackedScene) var door
 export (PackedScene) var ladder
+export (PackedScene) var chain
 export (PackedScene) var computer
 
 func _ready():
@@ -28,6 +30,8 @@ func setup_tiles():
 				create_instance_from_tilemap(cell, door, $Triggerables, Vector2(6,6))
 #			LADDER:
 #				create_instance_from_tilemap(cell, ladder, $Triggerables, Vector2(6,6))
+			CHAIN:
+				create_instance_from_tilemap(cell, chain, $Items, Vector2(6,6))
 			COIN:
 				create_instance_from_tilemap(cell, coin, $Items, Vector2(6,6))
 			PLAYER:
