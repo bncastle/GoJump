@@ -15,4 +15,3 @@ color = Color( 0.0509804, 0.054902, 0.105882, 1 )
 [node name="Camera" type="Camera2D" parent="."]
 offset = Vector2( 162, 84 )
 current = true
-
