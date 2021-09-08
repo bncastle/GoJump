@@ -10,4 +10,4 @@ func _on_triggered():
 func _on_player_entered(body):
 	if !is_open:
 		return
-	print("todo: next level!")
+	get_tree().call_group("game","on_next_level")
