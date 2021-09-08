@@ -47,6 +47,11 @@ func _process(delta):
 					if velocity.y < 0:
 						global_position.x = last_climbable_x
 						change_state(PlayerState.CLIMB)
+				elif $RayCast2D.is_colliding() && Input.is_action_pressed("down"):
+					var area = $RayCast2D.get_collider().get_node("Area2D")
+					global_position = Vector2(area.global_position.x, global_position.y + 2)
+					change_state(PlayerState.CLIMB)
+#
 		PlayerState.JUMP:
 			jump()
 		PlayerState.CLIMB:
@@ -61,7 +66,7 @@ func _process(delta):
 				jump()
 			fall_time += delta
 		PlayerState.LAND:
-			if $DustTimer.is_stopped() and !$FootDust.emitting:
+			if $DustTimer.is_stopped() and !$FootDust.emitting && velocity.y > 2:
 				$FootDust.emitting = true
 				$DustTimer.start($FootDust.lifetime + 0.1)
 #			print("fell: %f" % (global_position.y - last_y))

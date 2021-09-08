@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Interactables/Ladder.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Interactables/Chain.tscn" type="PackedScene" id=7]
 [ext_resource path="res://DungeonTileset.tres" type="TileSet" id=8]
+[ext_resource path="res://Interactables/LadderTop.tscn" type="PackedScene" id=9]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,6 +20,7 @@ coin = ExtResource( 3 )
 key = ExtResource( 4 )
 door = ExtResource( 5 )
 ladder = ExtResource( 6 )
+ladder_top = ExtResource( 9 )
 chain = ExtResource( 7 )
 
 [node name="Tiles" type="TileMap" parent="."]
