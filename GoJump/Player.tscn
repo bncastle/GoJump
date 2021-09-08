@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://gfx/player.png" type="Texture" id=2]
 [ext_resource path="res://FootDust.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sfx/Step.wav" type="AudioStream" id=4]
+[ext_resource path="res://sfx/JumpLand.wav" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.31598
@@ -127,6 +129,20 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.3 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "on_play_walk_sfx"
+} ]
+}
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 3.12346, 1.50572 )
@@ -147,7 +163,6 @@ centered = false
 offset = Vector2( -6, -12 )
 vframes = 5
 hframes = 5
-frame = 5
 
 [node name="Anim" type="AnimationPlayer" parent="."]
 autoplay = "idle"
@@ -176,5 +191,13 @@ cast_to = Vector2( 0, 1 )
 collision_mask = 64
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="Step" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "Sfx"
+
+[node name="Land" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "Sfx"
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]

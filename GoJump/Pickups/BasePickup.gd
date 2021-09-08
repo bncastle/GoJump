@@ -2,6 +2,7 @@ extends Area2D
 
 export(bool) var anim_random_start = false
 export(bool) var delete_on_pickup = true
+export(String) var type = ""
 
 func _ready():
 	connect("body_entered", self, "on_player_entered")

@@ -69,6 +69,8 @@ func _process(delta):
 			if $DustTimer.is_stopped() && !$FootDust.emitting && !$RayCast2D.is_colliding():
 				$FootDust.emitting = true
 				$DustTimer.start($FootDust.lifetime + 0.1)
+				if !$Land.playing:
+					$Land.play()
 #			print("fell: %f" % (global_position.y - last_y))
 			fall_time = 0
 			change_state(PlayerState.NORMAL)
@@ -155,3 +157,7 @@ func _on_Area2D_area_exited(area):
 		if climbables == 0 && state == PlayerState.CLIMB:
 			$Anim.play("idle")
 			change_state(PlayerState.FALL)
+
+func on_play_walk_sfx():
+	if !$Step.playing:
+		$Step.play()
