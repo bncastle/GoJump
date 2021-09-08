@@ -19,7 +19,8 @@ var fall_time := 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace wqith function body
+	#Allows the 1st call to is_on_floor() to work correctly
+	move_and_slide(Vector2(10,0), Vector2.UP, true)
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -47,6 +48,9 @@ func _process(delta):
 				jump()
 			fall_time += delta
 		LAND:
+			if $DustTimer.is_stopped():
+				$FootDust.emitting = true
+				$DustTimer.start($FootDust.lifetime + 0.2)
 #			print("fell: %f" % (global_position.y - last_y))
 			fall_time = 0
 			state = NORMAL
