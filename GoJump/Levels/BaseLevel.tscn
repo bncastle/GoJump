@@ -12,6 +12,7 @@
 [ext_resource path="res://Triggerables/Computer.tscn" type="PackedScene" id=10]
 
 [node name="Level" type="Node2D"]
+pause_mode = 1
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_lock_": true
