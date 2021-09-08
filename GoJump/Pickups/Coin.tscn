@@ -22,7 +22,8 @@ tracks/0/keys = {
 "values": [ 32, 33, 34, 35, 36 ]
 }
 
-[node name="Coin" index="0" instance=ExtResource( 1 )]
+[node name="Coin" instance=ExtResource( 1 )]
+collision_mask = 0
 
 [node name="Sprite" parent="." index="0"]
 frame = 32
@@ -33,4 +34,3 @@ shape = SubResource( 1 )
 [node name="Anim" parent="." index="2"]
 autoplay = "spin"
 anims/spin = SubResource( 2 )
-

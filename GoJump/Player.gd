@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-enum { NORMAL, JUMP, FALL, LAND, DIE, CLIMB_CHAIN }
+enum PlayerState { NORMAL, JUMP, FALL, LAND, DIE, CLIMB_CHAIN }
 const GRAVITY := 800
 const JUMP_VELOCITY := -200
 const AIR_JUMP_MULT := 0.75
@@ -12,10 +12,15 @@ export var speed := 65
 export var air_control := true
 export var max_air_jumps := 1
 
-var state := NORMAL
+var state:int = PlayerState.NORMAL
+var prev_state:int = PlayerState.NORMAL
 var air_jumps := 0
 var last_y := 0.0
 var fall_time := 0.0
+
+#number of vines out player is hanging onto at any given time
+var vines := 0
+var last_vine_x := 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,40 +32,40 @@ func _process(delta):
 		get_tree().quit()
 
 	match state:
-		NORMAL:
+		PlayerState.NORMAL:
 			if !is_on_floor():
-				state = FALL
+				change_state(PlayerState.FALL)
 				last_y = global_position.y
 			else:
 				horizontal()
 				if Input.is_action_just_pressed("jump"):
 					air_jumps = max_air_jumps
-					state = JUMP
+					change_state(PlayerState.JUMP)
 					jump()
-		JUMP:
+		PlayerState.JUMP:
 			jump()
-		CLIMB_CHAIN:
+		PlayerState.CLIMB_CHAIN:
 			climb_chain()
-		FALL:
+		PlayerState.FALL:
 			if is_on_floor():
-				state = LAND
+				change_state(PlayerState.LAND)
 			elif fall_time <= MIN_FALL_JUMP_TIME:
 				air_jumps = max_air_jumps
 				jump()
 			fall_time += delta
-		LAND:
+		PlayerState.LAND:
 			if $DustTimer.is_stopped() and !$FootDust.emitting:
 				$FootDust.emitting = true
 				$DustTimer.start($FootDust.lifetime + 0.1)
 #			print("fell: %f" % (global_position.y - last_y))
 			fall_time = 0
-			state = NORMAL
+			change_state(PlayerState.NORMAL)
 			pass
-		DIE:
+		PlayerState.DIE:
 			pass
 
 func _physics_process(delta):
-	if state != CLIMB_CHAIN:
+	if state != PlayerState.CLIMB_CHAIN:
 		velocity.y += GRAVITY * delta
 	velocity = move_and_slide(velocity, Vector2.UP, true)
 
@@ -93,13 +98,17 @@ func vertical():
 	else:
 		$Anim.play("climb")
 
+func change_state (new_state: int):
+	print("Change state from %d to %d" % [state, new_state])
+	prev_state = state
+	state = new_state
+
 func jump():
 	if air_control:
 		horizontal()
 
 	if Input.is_action_just_pressed("jump") && air_jumps >= 0:
 		$Anim.play("jump")
-		state = JUMP
 		if air_jumps == max_air_jumps:
 			velocity.y = JUMP_VELOCITY
 		else:
@@ -108,28 +117,31 @@ func jump():
 		air_jumps -= 1
 		last_y = global_position.y
 	elif is_on_floor() and velocity.y >= 0:
-		state = LAND
+		change_state(PlayerState.LAND)
 
 func climb_chain():
 	velocity.x = 0
 	vertical()
+	if Input.is_action_just_pressed("jump"):
+		air_jumps = max_air_jumps
+		horizontal()
+		change_state(PlayerState.JUMP)
+		if velocity.x != 0:
+			jump()
 
 
-var vines := 0
-
-func on_interact_entered(obj_pos: Vector2, type):
-	vines += 1
-	if state == JUMP:
-		global_position.x = obj_pos.x
-		state = CLIMB_CHAIN
-
-func on_interact_exited(obj_pos: Vector2, type):
-	vines = max(0, vines - 1)
-	if vines == 0 && state == CLIMB_CHAIN:
-		$Anim.play("idle")
-		state = FALL
+func _on_Area2D_area_entered(area):
+	if area.type == utils.InteractType.CHAIN:
+		vines += 1
+		if state == PlayerState.JUMP && (prev_state != PlayerState.CLIMB_CHAIN || last_vine_x != area.global_position.x):
+			last_vine_x = area.global_position.x
+			global_position.x = area.global_position.x
+			change_state(PlayerState.CLIMB_CHAIN)
 
 
-
-
-
+func _on_Area2D_area_exited(area):
+	if area.type == utils.InteractType.CHAIN:
+		vines = max(0, vines - 1)
+		if vines == 0 && state == PlayerState.CLIMB_CHAIN:
+			$Anim.play("idle")
+			change_state(PlayerState.FALL)

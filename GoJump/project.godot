@@ -19,6 +19,10 @@ config/name="GoJump"
 run/main_scene="res://Game.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+utils="*res://utils.gd"
+
 [display]
 
 window/size/width=324

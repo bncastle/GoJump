@@ -16,5 +16,3 @@ hframes = 10
 [node name="Collision" type="CollisionShape2D" parent="."]
 
 [node name="Anim" type="AnimationPlayer" parent="."]
-[connection signal="body_entered" from="." to="." method="_on_Interactable_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_Interactable_body_exited"]
