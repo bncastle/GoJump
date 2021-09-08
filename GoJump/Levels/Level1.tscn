@@ -10,5 +10,4 @@ tile_data = PoolIntArray( 0, 0, 131075, 1, 0, 4, 2, 0, 4, 3, 0, 4, 4, 0, 4, 5, 0
 
 [node name="Player" parent="." index="1" instance=ExtResource( 2 )]
 position = Vector2( 152.936, 43.2451 )
-max_air_jumps = 1
 
