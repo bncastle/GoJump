@@ -1,10 +1,54 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://fonts/Pixel40.tres" type="DynamicFont" id=2]
 [ext_resource path="res://fonts/Pixel24.tres" type="DynamicFont" id=3]
 [ext_resource path="res://gfx/player.png" type="Texture" id=4]
 [ext_resource path="res://idle.tres" type="Animation" id=5]
+[ext_resource path="res://gfx/Button.png" type="Texture" id=6]
+[ext_resource path="res://gfx/ButtonWhite.png" type="Texture" id=7]
+[ext_resource path="res://walk.tres" type="Animation" id=8]
+
+[sub_resource type="StyleBoxTexture" id=15]
+texture = ExtResource( 6 )
+region_rect = Rect2( 1, 1, 30, 30 )
+margin_left = 9.0
+margin_right = 10.0
+margin_top = 9.0
+margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id=11]
+texture = ExtResource( 6 )
+region_rect = Rect2( 1, 1, 30, 30 )
+margin_left = 9.0
+margin_right = 10.0
+margin_top = 9.0
+margin_bottom = 9.0
+
+[sub_resource type="StyleBoxTexture" id=12]
+texture = ExtResource( 6 )
+region_rect = Rect2( 1, 1, 30, 30 )
+margin_left = 9.0
+margin_right = 10.0
+margin_top = 9.0
+margin_bottom = 9.0
+modulate_color = Color( 0.494118, 0.494118, 0.494118, 1 )
+
+[sub_resource type="StyleBoxTexture" id=14]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 32, 32 )
+margin_left = 9.0
+margin_right = 10.0
+margin_top = 9.0
+margin_bottom = 9.0
+
+[sub_resource type="Theme" id=13]
+default_font = ExtResource( 3 )
+Button/colors/font_color_pressed = Color( 0, 0, 0, 1 )
+Button/styles/focus = SubResource( 15 )
+Button/styles/hover = SubResource( 11 )
+Button/styles/normal = SubResource( 12 )
+Button/styles/pressed = SubResource( 14 )
 
 [sub_resource type="Shader" id=8]
 code = "shader_type canvas_item;
@@ -48,6 +92,7 @@ tracks/0/keys = {
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = SubResource( 13 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -63,6 +108,7 @@ __meta__ = {
 }
 
 [node name="Char" type="Node2D" parent="."]
+pause_mode = 2
 position = Vector2( 254.779, 166.27 )
 
 [node name="Sprite" type="Sprite" parent="Char"]
@@ -73,7 +119,6 @@ centered = false
 offset = Vector2( -6, -12 )
 hframes = 5
 vframes = 5
-frame = 2
 __meta__ = {
 "_editor_description_": ""
 }
@@ -82,6 +127,7 @@ __meta__ = {
 autoplay = "idle"
 anims/RESET = SubResource( 10 )
 anims/idle = ExtResource( 5 )
+anims/walk = ExtResource( 8 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -116,23 +162,23 @@ mouse_filter = 2
 size_flags_vertical = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_top = 36.0
+margin_top = 24.0
 margin_right = 100.0
-margin_bottom = 88.0
+margin_bottom = 100.0
 mouse_filter = 2
 size_flags_vertical = 4
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 margin_right = 100.0
-margin_bottom = 24.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 100, 0 )
 custom_fonts/font = ExtResource( 3 )
 text = "Start"
 
 [node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 28.0
+margin_top = 40.0
 margin_right = 100.0
-margin_bottom = 52.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 100, 0 )
 custom_fonts/font = ExtResource( 3 )
 text = "Quit"
@@ -141,6 +187,7 @@ text = "Quit"
 pause_mode = 2
 
 [node name="Fader" type="ColorRect" parent="."]
+visible = false
 modulate = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
