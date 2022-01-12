@@ -7,6 +7,7 @@ func _on_Start_Button_pressed():
 	$Char/AnimationPlayer.play("walk")
 	yield(get_tree().create_timer(0.5), "timeout")
 	yield(utils.fade_out($Fader, $Tween, 0.5, true), "completed")
+	get_tree().paused = false
 	get_tree().change_scene("res://Game.tscn")
 
 
